@@ -6,7 +6,7 @@
 Symmetric and Deflation-based FastICA Methods for Independent Component Analysis
 }
 \description{
-The symmetric and deflation-based FastICA methods for the independent component problem. The function estimates the unmixing matrix using a single contrast function G.
+The symmetric and deflation-based FastICA methods for the independent component problem. The function estimates the unmixing matrix using a single nonlinearity g.
 }
 \usage{
 fICA(X, g=NULL, dg=NULL, init=NULL, method="sym", eps=1e-06, maxiter=100)
@@ -15,8 +15,8 @@ fICA(X, g=NULL, dg=NULL, init=NULL, method="sym", eps=1e-06, maxiter=100)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{X}{a numeric data matrix. Missing values are not allowed.}
-  \item{g}{the first derivative of the contrast function G. Also called the nonlinearity.}
-  \item{dg}{the second derivative of the contrast function G.}
+  \item{g}{the nonlinearity.}
+  \item{dg}{the first derivative of the nonlinearity.}
   \item{init}{a numeric matrix for the initial value of the algorithm. If \code{NULL}, the identity matrix is used.}
   \item{method}{symmetric (\code{"sym"}) or deflation-based (\code{"def"})}.
   \item{eps}{convergence tolerance.}

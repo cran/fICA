@@ -1,10 +1,10 @@
-e1ba3c1155d038a001e6f4690f62c874 *DESCRIPTION
+cdaf8c9b2b237343c17397529324be4d *DESCRIPTION
 069ed830394b8ee04a89a2bfba01943d *NAMESPACE
 377594379fa5c62cba2fac87b869f782 *R/adapt_fICA.R
 2a0442f7d8e3a23eac730e2d14f067a7 *R/fICA.R
 3a744ee4475a5c502a6ddf1e22a29014 *R/internals.R
-56944a64c8c9baa8203f23a9488eaf35 *inst/ChangeLog
-3219a82d2004c4eac244830c3813fbf1 *man/adapt_fICA.Rd
-da7c5c8b5d1e905b7a1e83d246efff13 *man/contrasts.Rd
-6e02dddd11cfad16592c1fa227206485 *man/fICA-package.Rd
-60be1aeb8782d2798c0bd5393f4fe494 *man/fICA.Rd
+7f3d4c251fe3f53cd6fe0f6a2d07272f *inst/ChangeLog
+ef3f34daacf29f469a2592f6ac124e17 *man/adapt_fICA.Rd
+67027236cfbeb9eaeb81e7c262e43e80 *man/fICA-package.Rd
+26b292e21a85749bf36bcaf6af26fae6 *man/fICA.Rd
+cb9fb920204b9bc46ac680c187408871 *man/nonlinearities.Rd

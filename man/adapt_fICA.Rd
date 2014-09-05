@@ -6,7 +6,7 @@
 Adaptive Deflation-based FastICA Method for Independent Component Analysis
 }
 \description{
-The adaptive deflation-based FastICA method for the independent component problem. The function estimates the unmixing matrix by finding the best contrast function, for each component separately, from a set of contrast functions. The reloaded FastICA is a special case of adaptive FastICA with one contrast function only.
+The adaptive deflation-based FastICA method for the independent component problem. The function estimates the unmixing matrix by finding the best nonlinearity, for each component separately, from a set of nonlinearities. The reloaded FastICA is a special case of adaptive FastICA with one nonlinearity only.
 }
 \usage{
 adapt_fICA(X, gs=gf, dgs=dgf, name=gnames, kj=2, eps=1e-06, maxiter=100)
@@ -15,9 +15,9 @@ adapt_fICA(X, gs=gf, dgs=dgf, name=gnames, kj=2, eps=1e-06, maxiter=100)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{X}{a numeric data matrix. Missing values are not allowed.}
-  \item{gs}{a vector of functions containing the first derivatives of the contrast functions. Also called the nonlinearities.}
-  \item{dgs}{a vector of functions containing the second derivatives of the contrast functions.}
-  \item{name}{a vector of strings containing the names of the contrast functions.}
+  \item{gs}{a vector of functions containing the nonlinearities.}
+  \item{dgs}{a vector of functions containing the first derivatives of the nonlinearities.}
+  \item{name}{a vector of strings containing the names of the nonlinearities.}
   \item{kj}{defines the initial estimate of the unmixing matrix, see details.}
   \item{eps}{convergence tolerance.}
   \item{maxiter}{maximum number of iterations.}
@@ -41,11 +41,11 @@ For the meaning of the value \code{kj} used as \code{kj}-JADE, see the help for 
 \cite{Nordhausen, K., Ilmonen, P., Mandal, A., Oja, H. and Ollila, E. (2011), Deflation-based FastICA reloaded,
 in \emph{Proc. "19th European Signal Processing Conference 2011 (EUSIPCO 2011)",} Barcelona, 1854--1858.}
 
-\cite{Miettinen, J., Nordhausen, K., Oja, H. and Taskinen, S. (2013), Deflation-based FastICA with adaptive contrast functions, manuscript.}
+\cite{Miettinen, J., Nordhausen, K., Oja, H. and Taskinen, S. (2014), Deflation-based FastICA with adaptive choices of nonlinearities, to appear in \emph{IEEE Transactions on Signal Processing}.}
 }
 \author{Jari Miettinen}
 
-\seealso{\link{fICA}, \link{contrasts}, \link[JADE]{FOBI}, \link[JADE]{k_JADE}}
+\seealso{\link{fICA}, \link{nonlinearities}, \link[JADE]{FOBI}, \link[JADE]{k_JADE}}
 
 \examples{
 A <- matrix(rnorm(9),3,3)
@@ -64,7 +64,7 @@ plot(res1)
 require(JADE)
 MD(coef(res1),A)
 
-# changing the set of candidate contrast functions
+# changing the set of candidate nonlinearities
 
 g <- function(x){x^2}
 dg <- function(x){2*x}
