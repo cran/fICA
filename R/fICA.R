@@ -1,45 +1,76 @@
-fICA<-function(X,g=NULL,dg=NULL,init=NULL,method="sym",eps=1e-06,maxiter=100)
+fICA<-function(X, g="tanh", dg=NULL, init=NULL, method="sym", inR=TRUE, eps=1e-06, maxiter=1000)
 {
-   n<-dim(X)[1]
-   p<-dim(X)[2]
- 
+   n<-nrow(X)
+   p<-ncol(X)
+   eps<-p*eps 
+   name<-c("pow3","tanh","gaus") 
+
    method<-match.arg(method,c("sym","def"))
     
    invS0<-solve(mat.sqrt(cov(X)))
    Z<-tcrossprod(sweep(X,2,colMeans(X)),invS0) 
-  
+      
    if(is.null(init)){
-    VN<-diag(p)
-   }else VN<-init
- 
-   if(is.null(g)){
-    g<-g_tanh
-    dg<-dg_tanh
+     VN<-diag(p)
+   }else{ 
+     VN<-crossprod(t(init),solve(invS0))
+     VN<-crossprod(solve(mat.sqrt(tcrossprod(VN,VN))),VN)
    }
-   
+
    V<-switch(method,
-        "sym"={
-               fICA.sym(Z, VN, g=g, dg=dg, eps=eps, maxiter=maxiter)
+        "sym"={ 
+               if(inR){
+                if(!(is.function(g)&&is.function(dg))){                  
+                  gi <- which(name==g[1])
+                  g1 <- gf[[gi]]
+                  dg1 <- dgf[[gi]]     
+                }else{
+                  g1<-g
+                  dg1<-dg
+                }
+                
+                V <- fICA.sym(Z, VN, g=g1, dg=dg1, eps=p*eps, maxiter=maxiter)
+              }else{
+                gi <- which(name==g[1])
+                 V <- .Call("ficasym",Z,gi,VN,p*eps,maxiter,PACKAGE="fICA")
                }
+              } 
         ,
         "def"={
-               fICA.def(Z, VN, g=g, dg=dg, eps=eps, maxiter=maxiter)
-               }
-        )
-         
-    W<-crossprod(V,invS0)
+                if(inR){
+                 if(!(is.function(g)&&is.function(dg))){
+                   gi <- which(name==g[1])
+                   g1 <- gf[[gi]]
+                   dg1 <- dgf[[gi]]    
+                 }else{
+                   g1<-g
+                   dg1<-dg
+                 }
+                     
+                 V <- fICA.def(Z, VN, g=g1, dg=dg1, eps=eps, maxiter=maxiter)
+                }else{
+                 gi <- which(name==g[1])
+                 V <- .Call("ficadef",Z,gi,VN,eps,maxiter,PACKAGE="fICA")
+                }
+              }
+         )
+     
+   if(sum(abs(V$W))>0){    
+    W<-crossprod(V$W,invS0)
     W<-crossprod(diag(sign(rowMeans(W))),W)
     S<-tcrossprod(sweep(X,2,colMeans(X)),W)
-    
-    res <- list(W=W, g=g,method=method, S=S)
-    class(res) <- "bss"
-    res
+   }else stop("no convergence")
+     
+   res <- list(W=W, g=g,method=method, S=S)
+   class(res) <- "bss"
+   res
 }
 
 fICA.sym<-function(Z,VN,g,dg,eps,maxiter)
 {
-   p<-dim(Z)[2]
-  
+   n<-nrow(Z)
+   p<-ncol(Z)  
+   
    V0<-VN
    V<-VN
    W<-matrix(0,p,p)
@@ -47,45 +78,49 @@ fICA.sym<-function(Z,VN,g,dg,eps,maxiter)
    iter<-0
    while (TRUE){
      iter <- iter+1
-     for (i in 1:p){
-       w<-V[i,]
-       wi<-colMeans(sweep(Z,1,g(crossprod(t(Z),w)),"*"))-mean(dg(crossprod(t(Z),w)))*w 
-       W[i,]<-wi
-     }  
-         
+  
+     ZV<-tcrossprod(Z,V)
+     W<-crossprod(g(ZV),Z)/n-crossprod(diag(colMeans(dg(ZV))),V)
+           
      V<-crossprod(solve(mat.sqrt(tcrossprod(W,W))),W)
      if(mat.norm(abs(V)-abs(V0))<eps) break
-     if(iter==maxiter) stop("maxiter reached without convergence")
+        if(iter==maxiter) stop("maxiter reached without convergence")
      V0<-V
    }
-   t(V) 
+   list(W=t(V)) 
 } 
 
 fICA.def<-function(Z,VN,g,dg,eps,maxiter)
 {
-   p<-dim(Z)[2]
+   p<-ncol(Z)
    V<-matrix(0,p,p)
   
    for(i in 1:p){
      vn<-VN[,i]
-     for(it in 1:maxiter){
+     a<-0
+     iter<-0
+     while(TRUE){
+       iter<-iter+1 
        v<-vn
-       vn<-colMeans(sweep(Z,1,g(crossprod(t(Z),v)),"*"))-mean(dg(crossprod(t(Z),v)))*v
+       Zv<-crossprod(t(Z),v)
+       vn<-colMeans(sweep(Z,1,g(Zv),"*"))-mean(dg(Zv))*v
        vn<-vn/sqrt(sum(vn^2))
        if(sqrt(sum((vn-v)^2))>1) vn<--vn
-       vn<-(1-1/(it+20))*vn+v/(it+20)
+       if((a>0)&&(floor(iter/a)==iter/a)){
+        vn<-(1-1/5)*vn+v/5
+       }else vn<-(1-1/(iter+20))*vn+v/(iter+20) 
        vn<-vn-crossprod(tcrossprod(V,V),vn)  
        vn<-vn/sqrt(sum(vn^2))
-       
        if(sqrt(sum((v-vn)^2))<eps || sqrt(sum((v+vn)^2))<eps) break
-       if(it==maxiter) stop("maxiter reached without convergence") 
-     }
-    
+       if(iter==maxiter){
+        a<-a+1
+        iter<-0
+        if(a>10) stop("maxiter reached without convergence") 
+       } 
+      }
      V[,i]<-t(vn)
    }
-   V
+   list(W=V) 
 }
-
-
 
 

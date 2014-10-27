@@ -2,17 +2,17 @@
 \alias{fICA-package}
 \docType{package}
 \title{
-Classic, reloaded and adaptive FastICA algorithms
+Classical, Reloaded and Adaptive FastICA Algorithms
 }
 \description{
-The package includes classic symmetric and deflation-based FastICA algorithms, reloaded deflation-based FastICA and an algorithm for adaptive deflation-based FastICA using multiple nonlinearities. 
+Algorithms for classical symmetric and deflation-based FastICA, reloaded deflation-based FastICA algorithm and an algorithm for adaptive deflation-based FastICA using multiple nonlinearities. 
 }
 \details{
 \tabular{ll}{
 Package: \tab fICA\cr
 Type: \tab Package\cr
-Version: \tab 1.0-1\cr
-Date: \tab 2014-09-05\cr
+Version: \tab 1.0-2\cr
+Date: \tab 2014-10-17\cr
 License: \tab GPL (>= 2)\cr
 }
 

@@ -9,23 +9,26 @@ Symmetric and Deflation-based FastICA Methods for Independent Component Analysis
 The symmetric and deflation-based FastICA methods for the independent component problem. The function estimates the unmixing matrix using a single nonlinearity g.
 }
 \usage{
-fICA(X, g=NULL, dg=NULL, init=NULL, method="sym", eps=1e-06, maxiter=100)
+fICA(X, g="tanh", dg=NULL, init=NULL, method="sym", inR=TRUE, 
+     eps=1e-06, maxiter=1000)
 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{X}{a numeric data matrix. Missing values are not allowed.}
-  \item{g}{the nonlinearity.}
-  \item{dg}{the first derivative of the nonlinearity.}
-  \item{init}{a numeric matrix for the initial value of the algorithm. If \code{NULL}, the identity matrix is used.}
+  \item{g}{the nonlinearity, tanh by default, see details.}
+  \item{dg}{the first derivative of the nonlinearity, see details.}
+  \item{init}{a numeric matrix for the initial value of the algorithm}
   \item{method}{symmetric (\code{"sym"}) or deflation-based (\code{"def"})}.
+  \item{inR}{a logical which indicates whether R or C is used for computations, see details.}
   \item{eps}{convergence tolerance.}
   \item{maxiter}{maximum number of iterations.}
 }
 
-\details{If deflation-based fastICA is to be used we recommend the use of \link{adapt_fICA} either with fixed contrast function or adaptively selected contrast functions
-since \link{adapt_fICA} is affine equivariant and extracts the sources in an optimal order.
+\details{
+The deflation-based FastICA estimate depends on the initial value of the unmixing matrix. This is due to the fact that the algorithm does not always find the global maximum of the objective function, but it may stop to local maxima as well. Hence, the deflation-based FastICA estimate is affine equivariant only if the initial value is affine equivariant. Therefore, we recommend the use of \link{reloaded_fICA} or \link{adapt_fICA}.
 
+The standard nonlinearities can be chosen by \code{g="pow3"}, \code{g="tanh"} or \code{g="gaus"}. These estimates can be computed either in R or in C. In order to use some other nonlinearity, one has to give the nonlinearity and its derivative as functions, and the computations have to be performed in R.
 }
 \value{
  A list with class 'bss' containing the following components:
@@ -40,8 +43,7 @@ since \link{adapt_fICA} is affine equivariant and extracts the sources in an opt
 
 \author{Jari Miettinen}
 
-\seealso{\link{adapt_fICA}}
-
+\seealso{\link{adapt_fICA}, \link{reloaded_fICA}, \link{nonlinearities}}
 
 
 \examples{
@@ -54,11 +56,24 @@ s3 <- runif(1000)
 S <- cbind(s1,s2,s3)
 X <- S \%*\% t(A)
 
-res1<-fICA(X,method="def")
+# tanh is the default nonlinearity
+res1<-fICA(X,method="sym")
 coef(res1)
 plot(res1) 
 require(JADE)
 MD(coef(res1),A)
+
+# nonlinearity pow3 is chosen as follows
+res2<-fICA(X,g="pow3",method="sym")
+coef(res2)
+require(JADE)
+MD(coef(res2),A)
+
+# nonlinearity from gf is chosen as follows
+res3<-fICA(X,g=gf[[6]],dg=dgf[[6]],method="sym")
+coef(res3)
+require(JADE)
+MD(coef(res3),A)
 
 }
 

@@ -2,10 +2,18 @@ LOG of the CHANGES in the package fICA
 
 Version 1.0-0:
 
-First version released on CRAN
+First version released on CRAN.
 
 Version 1.0-1:
 
-The manuals are updated 
+The manuals are updated. 
 
+Version 1.0-2:
 
+Several minor modifications. The most significant ones are:
+
+- Some estimates can be computed partly in C. 
+
+- The function compute_alphas is modified and it is set as an external function.
+
+- A new function for reloaded FastICA was added.

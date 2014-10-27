@@ -1,4 +1,5 @@
+importFrom(Rcpp, evalCpp)
 importFrom(JADE, k_JADE, FOBI)
 
-export(fICA,adapt_fICA,gf,dgf,gnames)
-
+export(fICA, adapt_fICA, reloaded_fICA, compute_alphas, gf, dgf, Gf, gnames)
+useDynLib(fICA)

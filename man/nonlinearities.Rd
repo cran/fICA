@@ -2,6 +2,7 @@
 \alias{nonlinearities}
 \alias{gf}
 \alias{dgf}
+\alias{Gf}
 \alias{gnames}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -15,6 +16,8 @@ The default set of nonlinearities with their first derivatives and names used in
 gf
 
 dgf
+
+Gf
 
 gnames
 }
@@ -40,7 +43,7 @@ gf[[12]] \tab bt1.2 \tab \eqn{(x-1.2)_+^2-(x+1.2)_-^2} \cr
 gf[[13]] \tab bt1.4 \tab \eqn{(x-1.4)_+^2-(x+1.4)_-^2} \cr
 gf[[14]] \tab bt1.6 \tab \eqn{(x-1.6)_+^2-(x+1.6)_-^2} 
 }
-The object \code{dgf} the corresponding first derivatives in the same order and gnames the names of them.
+The objects \code{dgf}, \code{Gf} and \code{gnames} contain the corresponding first derivatives, integrals and names in the same order.
 
 For skew sources \emph{lt0.6}  and \emph{rt0.6} combined are more efficient than the commonly used \emph{skew}. The rest of the functions are useful for example for sources with multimodal density functions.  
 
@@ -49,7 +52,7 @@ The user can easily submit a own set or modify the set suggested here. See the e
 \references{
 \cite{Hyvarinen, A. and Oja, E. (1997), A fast fixed-point algorithm for independent component analysis, \emph{Neural Computation}, vol. 9, 1483--1492.}
 
-\cite{Miettinen, J., Nordhausen, K., Oja, H. and Taskinen, S. (2014), Deflation-based FastICA with adaptive choices of nonlinearities, to appear in \emph{IEEE Transactions on Signal Processing}.}
+\cite{Miettinen, J., Nordhausen, K., Oja, H. and Taskinen, S. (2014), Deflation-based FastICA with adaptive choices of nonlinearities, \emph{IEEE Transactions on Signal Processing}, 62(21), 5716--5724.}
 }
 \author{Jari Miettinen}
 
@@ -59,8 +62,11 @@ The user can easily submit a own set or modify the set suggested here. See the e
 # leaving out functions from the default set and adding a new function  
 g <- function(x){x^2}
 dg <- function(x){2*x}
+G <- function(x){x^3/3}
+
 gf_new <- c(gf[-c(6,8,10)],g)
-dgf_new <- c(dgf[-c(6,8,10)],g)
+dgf_new <- c(dgf[-c(6,8,10)],dg)
+Gf_new <- c(Gf[-c(6,8,10)],G)
 gnames_new <- c(gnames[-c(6,8,10)],"skew")
 }
 
