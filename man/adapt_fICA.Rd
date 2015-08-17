@@ -6,7 +6,7 @@
 Adaptive Deflation-based FastICA Method for Independent Component Analysis
 }
 \description{
-The adaptive deflation-based FastICA method for the independent component problem. The function estimates the unmixing matrix by finding the best nonlinearity, for each component separately, from a set of nonlinearities.
+The adaptive deflation-based FastICA method for the independent component problem. The function estimates the unmixing matrix by finding, for each component separately, the best nonlinearity from a set of nonlinearities.
 }
 \usage{
 adapt_fICA(X, gs=gf, dgs=dgf, name=gnames, kj=0, inR=TRUE, 
@@ -68,6 +68,7 @@ MD(coef(res1),A)
 
 # changing the set of candidate nonlinearities
 
+?nonlinearities
 g <- function(x){x^2}
 dg <- function(x){2*x}
 gf_new <- c(gf[-c(5,8,10)],g)

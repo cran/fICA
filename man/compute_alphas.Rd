@@ -5,7 +5,7 @@
 Estimation of alphas in the asymptotic covariance matrix of the deflation-based FastICA estimator
 }
 \description{
-Using the estimates of the independent components, the function computes for a given set of nonlinearities the quantities (alphas), which determine the choices of the nonlinearities and in which order they are used in the adaptive deflation-based FastICA method.
+Using the estimates of the independent components, the function computes for a given set of nonlinearities, the quantities (alphas). Alphas determine the choices of the nonlinearities and in which order the nonlinearities are used in the adaptive deflation-based FastICA method.
 }
 \usage{
 compute_alphas(Z, gs=gf, dgs=dgf, name=gnames)

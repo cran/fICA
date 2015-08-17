@@ -11,8 +11,8 @@ Algorithms for classical symmetric and deflation-based FastICA, reloaded deflati
 \tabular{ll}{
 Package: \tab fICA\cr
 Type: \tab Package\cr
-Version: \tab 1.0-2\cr
-Date: \tab 2014-10-17\cr
+Version: \tab 1.0-3\cr
+Date: \tab 2015-08-17\cr
 License: \tab GPL (>= 2)\cr
 }
 
