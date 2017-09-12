@@ -117,11 +117,11 @@ reloaded_fICA.R <- function(Z, g=NULL, dg=NULL, eps=1e-04, maxiter=100)
 }
 
 
-G_fICA.R <- function(Z,g,dg,G,eps,maxiter)
+G_fICA.R <- function(Z, g, dg, G, eps, maxiter)
 {
    n <- nrow(Z)
    p <- ncol(Z)
-   name <- c("pow3","tanh","gaus")
+   name <- c("pow3", "tanh", "gaus")
    EGn <- c(0.75,0.3745672,-0.7071068)
    if((is.function(g)&&is.function(dg)&&is.function(G))){
      Gn <- integrate(Vectorize(function(x){G(x)*dnorm(x)}),-10,10)$value  
@@ -167,7 +167,8 @@ G_fICA.R <- function(Z,g,dg,G,eps,maxiter)
        } 
       }
     V[,i] <- t(vn)
-  }   
-  list(W=V, alphas=EG, ord=ord[-p]-1) 
+  }
+  res <- list(W=V, alphas=EG, ord=ord[-p]-1)
+  res
 }
 

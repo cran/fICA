@@ -2,7 +2,7 @@
 \alias{compute_alphas}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimation of alphas in the asymptotic covariance matrix of the deflation-based FastICA estimator
+Estimation of Alphas in the Asymptotic Covariance Matrix of the Deflation-based FastICA Estimator
 }
 \description{
 Using the estimates of the independent components, the function computes for a given set of nonlinearities, the quantities (alphas). Alphas determine the choices of the nonlinearities and in which order the nonlinearities are used in the adaptive deflation-based FastICA method.

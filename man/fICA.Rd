@@ -9,8 +9,8 @@ Symmetric and Deflation-based FastICA Methods for Independent Component Analysis
 The symmetric and deflation-based FastICA methods for the independent component problem. The function estimates the unmixing matrix using a single nonlinearity g.
 }
 \usage{
-fICA(X, g="tanh", dg=NULL, G=NULL, init=NULL, method="sym2", inR=TRUE, 
-     eps=1e-06, maxiter=1000)
+fICA(X, g="tanh", dg=NULL, G=NULL, init=NULL, n.init = 1, method="sym2",
+     inR=TRUE, eps=1e-06, maxiter=1000)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -20,6 +20,7 @@ fICA(X, g="tanh", dg=NULL, G=NULL, init=NULL, method="sym2", inR=TRUE,
   \item{dg}{the first derivative of the nonlinearity, see details.}
   \item{G}{the integral function of the nonlinearity, see details.}
   \item{init}{a numeric matrix for the initial value of the algorithm}
+  \item{n.init}{a positive integer for the number of initial values in symmetric algorithms, see details.}
   \item{method}{squared symmetric (\code{"sym2"}), symmetric (\code{"sym"}) or deflation-based (\code{"def"})}.
   \item{inR}{a logical which indicates whether R or C is used for computations, see details.}
   \item{eps}{convergence tolerance.}
@@ -29,7 +30,9 @@ fICA(X, g="tanh", dg=NULL, G=NULL, init=NULL, method="sym2", inR=TRUE,
 \details{
 The deflation-based FastICA estimate depends on the initial value of the unmixing matrix. This is due to the fact that the algorithm does not always find the global maximum of the objective function, but it may stop to local maxima as well. Hence, the deflation-based FastICA estimate is affine equivariant only if the initial value is affine equivariant. Therefore, we recommend the use of \link{reloaded_fICA} or \link{adapt_fICA}.
 
-The standard nonlinearities can be chosen by \code{g="pow3"}, \code{g="tanh"} or \code{g="gaus"}. These estimates can be computed either in R or in C. In order to use some other nonlinearity, one has to give the nonlinearity and its derivative as functions (and the integral function when squared symmetric FastICA is computed), and the computations have to be performed in R.
+The standard nonlinearities can be chosen by \code{g="pow3"}, \code{g="tanh"} or \code{g="gaus"}. These estimates can be computed either in R or in C (except the squared symmetric). In order to use some other nonlinearity, one has to give the nonlinearity and its derivative as functions (and the integral function when squared symmetric FastICA is computed), and the computations have to be performed in R.
+
+If the symmetric or squared symmetric algorithm does not converge, one can choose \code{n.init=k} for some \eqn{k>1}. Then up to \eqn{k} random initial values are tried, and if none of them gives a convergent run of the algorithm, the function returns the matrix which gave the largest value of the objective function over all \eqn{k\times maxiter} steps.  
 }
 \value{
  A list with class 'bss' containing the following components:
@@ -41,7 +44,7 @@ The standard nonlinearities can be chosen by \code{g="pow3"}, \code{g="tanh"} or
 \references{
 \cite{Hyvarinen, A. and Oja, E. (1997), A fast fixed-point algorithm for independent component analysis, \emph{Neural Computation}, vol. 9, 1483--1492.}
 
-\cite{Miettinen, J., Nordhausen, K., Oja, H., Taskinen, S. and Virta, J. (2015), The squared symmetric FastICA estimator, submitted. }
+\cite{Miettinen, J., Nordhausen, K., Oja, H., Taskinen, S. and Virta, J. (2015), The squared symmetric FastICA estimator, \emph{Signal Processing}, vol. 131, 402--411. }
 }
 
 \author{Jari Miettinen}

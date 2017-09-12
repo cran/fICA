@@ -18,22 +18,16 @@ adapt_fICA <- function(X, gs=gf, dgs=dgf, name=gnames, kj=0, inR=TRUE, eps=1e-06
 
    if(inR){
      if(length(name)!=length(gs)){
-       name<-NULL
-       for(i in 1:length(gs)){
-        name[i] <- paste("g",i) 
-       }
+       name <- paste("g",1:length(gs)) 
      } 
-     res <- adapt_fICA.R(Z,gs=gs,dgs=dgs,name=name,kj=kj,eps=eps,maxiter=maxiter)
+     res <- adapt_fICA.R(Z, gs=gs, dgs=dgs, name=name, kj=kj, eps=eps, maxiter=maxiter)
    }else{
      name <- gnames
      res <- .Call("adfica",Z,eps,maxiter,PACKAGE="fICA")
    }  
   
-   cnam <- NULL
-   for(i in 1:p){
-     cnam[i] <- paste("comp",i)
-   }
-
+   cnam <- paste("comp",1:p)
+   
    V <- res$W 
    alphas <- res$alphas
    ord <- res$ord+1

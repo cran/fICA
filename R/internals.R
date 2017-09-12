@@ -9,6 +9,11 @@ mat.norm <- function(A)
  sqrt(sum(A^2))
 }
 
+rort <- function(p)
+{
+ qr.Q(qr(matrix(rnorm(p * p), p)))
+}
+
 G_pow3 <- function(x){.Call("Gpow3",as.matrix(x),PACKAGE="fICA")$gx-0.75}
 G_tanh <- function(x){log(cosh(x))-0.3745672}
 G_gaus <- function(x){-exp(-x^2/2)+0.7071068}
