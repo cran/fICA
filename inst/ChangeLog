@@ -1,5 +1,9 @@
 LOG of the CHANGES in the package fICA
 
+Version 1.1-1:
+
+Reference added to The R Journal article of this package.
+
 Version 1.1-0:
 
 - In the symmetric FastICA functions, if the algorithm does not converge, one can now get an estimate based on the objective function function values.   

@@ -1,0 +1,24 @@
+bibentry(bibtype = "Article",
+  title        = "{fICA}: FastICA Algorithms and Their Improved Variants",
+  author       = c(person(given = "Jari",
+                          family = "Miettinen",
+                          email = "jari.p.miettinen@aalto.fi"),
+                   person(given = "Klaus",
+                          family = "Nordhausen",
+                          email = "klaus.nordhausen@tuwien.ac.at"),
+                   person(given = "Sara",
+                          family = "Taskinen",
+                          email = "sara.l.taskinen@jyu.fi")),
+  journal      = "The R Journal",
+  year         = "2018",
+  volume       = "10",
+  pages        = "148--158",
+  doi          = "10.32614/RJ-2018-046",
+
+  header       = "To cite fICA in publications use:",
+  textVersion  =
+  paste("Jari Miettinen, Klaus Nordhausen, Sara Taskinen (2018).",
+        "fICA: FastICA Algorithms and Their Improved Variants.",
+        "The R Journal, 10, 148-158.",
+        "doi:10.32614/RJ-2018-046")
+)

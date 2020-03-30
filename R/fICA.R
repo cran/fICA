@@ -66,7 +66,7 @@ fICA <- function(X, g="tanh", dg=NULL, G=NULL, init=NULL, n.init=1, method="sym2
                   G1 <- G 
                 }
                 
-                V <- fICA.sym(Z, VN, g=g1, dg=dg1, n.init=n.init, eps=p*eps, maxiter=maxiter)
+                V <- fICA.sym(Z, VN, g=g1, dg=dg1, G=G1, n.init=n.init, eps=p*eps, maxiter=maxiter)
               }else{
                 gi <- which(name==g[1])
                 V <- .Call("ficasym",Z,gi,VN,p*eps,maxiter,PACKAGE="fICA")
