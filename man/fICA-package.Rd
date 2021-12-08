@@ -12,8 +12,8 @@ Algorithms for classical symmetric and deflation-based FastICA, reloaded deflati
 \tabular{ll}{
 Package: \tab fICA\cr
 Type: \tab Package\cr
-Version: \tab 1.1-1\cr
-Date: \tab 2020-03-30\cr
+Version: \tab 1.1-2\cr
+Date: \tab 2021-12-08\cr
 License: \tab GPL (>= 2)\cr
 }
 
@@ -25,7 +25,7 @@ License: \tab GPL (>= 2)\cr
 \author{
 Jari Miettinen, Klaus Nordhausen, Hannu Oja, Sara Taskinen
 
-Maintainer: Jari Miettinen <jari.p.miettinen@aalto.fi>
+Maintainer: Klaus Nordhausen <klaus.k.nordhausen@jyu.fi>
 
 }
 \keyword{package}

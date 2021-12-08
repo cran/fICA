@@ -1,4 +1,4 @@
-c1f99e488c982266653e9dea5c3364a5 *DESCRIPTION
+5c725b6f9eeaf620bf2c15bf5c456062 *DESCRIPTION
 c372ac9f2e5cdf44f37cfdac9e2ab09f *NAMESPACE
 30d021338dbc0c0f7ddcdcd97d584961 *R/adapt_fICA.R
 9e58ac5f393fe460831f746462a3648e *R/compute_alphas.R
@@ -6,10 +6,10 @@ c372ac9f2e5cdf44f37cfdac9e2ab09f *NAMESPACE
 3734bf30d69ddff3c081892455648554 *R/internals.R
 624405807cd8b7ec1a56d3b5ae0078bc *R/reloaded_fICA.R
 7f2ede343ea446642fb87df3dc94180f *inst/CITATION
-b4474bde778de770b25069b9f2dde9ff *inst/ChangeLog
+7c7c5d423957244e13fecf317b018f37 *inst/ChangeLog
 3edf0f570aea5992527f43d13fd55cb7 *man/adapt_fICA.Rd
 15395f7b349c3b38a2d203dc7bb8487c *man/compute_alphas.Rd
-36ef8b41e559d6688840ae899eacdee9 *man/fICA-package.Rd
+4cf5afccc02ebe6ffd00a4e70c4a4dc8 *man/fICA-package.Rd
 6fda26554d4d06547c24b253f1d8ca4a *man/fICA.Rd
 23a600dc3e4f828128aa0e2f37a45a2b *man/nonlinearities.Rd
 c90116d2ea0eccd8753dd790501b1f5e *man/reloaded_fICA.Rd
